@@ -1,14 +1,20 @@
 spring:
-    application:
-        name: product-services
-    cloud:
-        stream:
-            bindings:
-                testEvent-out-0:
-                    destination: test-topic # hangi başlığa bu eventi göndereyim?
-                    content-type: application/json # hangi tür ile göndereyim?
-            kafka:
-                binder:
-                    brokers: localhost:9092
+  application:
+    name: product-services
+  cloud:
+    function:
+      definition: consumeOrderCreated 
+    stream:
+      bindings:
+        testEvent-out-0:
+          destination: test-topic # hangi başlığa bu eventi göndereyim?
+          content-type: application/json # hangi tür ile göndereyim?
+
+        consumeOrderCreated-in-0:
+          destination: order-created-topic 
+          group: product-service-group 
+      kafka:
+        binder:
+          brokers: localhost:9092
 server:
-    port: 8080
+  port: 8080
