@@ -4,12 +4,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("api/v1/users")
-public class UserController {
 
-    @GetMapping("")
-    public String sayHello(){
-        return "Hello from User Service";
+
+@RequestMapping("/api/users")
+@RestController
+public class UsersController {
+    @GetMapping
+    public String get() {
+        System.out.println("UsersController çalıştı");
+        return "UsersController";
     }
 }
