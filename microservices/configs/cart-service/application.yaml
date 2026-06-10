@@ -1,6 +1,7 @@
 spring:
-    application:
-        name: product-service
+  application:
+    name: cart-service
+
 eureka:
   client:
     fetch-registry: true

@@ -1,6 +1,6 @@
 spring:
-    application:
-        name: product-service
+  application:
+    name: order-service
 eureka:
   client:
     fetch-registry: true

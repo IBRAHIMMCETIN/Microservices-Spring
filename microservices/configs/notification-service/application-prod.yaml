@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: prod.turkcell.com:9092
+eureka:
+  client:
+    service-url:
+      defaultZone: http://prod.turkcell.com:8761/eureka/

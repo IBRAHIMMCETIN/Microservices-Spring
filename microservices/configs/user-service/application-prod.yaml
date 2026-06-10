@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://prod.turkcell.com:5434/users
+    username: postgres
+    password: turkcellprod
+    driver-class-name: org.postgresql.Driver
+eureka:
+  client:
+    service-url:
+      defaultZone: http://prod.turkcell.com:8761/eureka/

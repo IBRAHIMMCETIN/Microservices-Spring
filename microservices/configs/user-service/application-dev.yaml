@@ -2,14 +2,14 @@ spring:
   cloud:
     stream:
       bindings:
-        testEvent-out-0:
-          destination: test-topic 
-          content-type: application/json 
+        consumeTestEvent-in-0:
+          destination: test-topic
+          group: user-service-group
       kafka:
         binder:
           brokers: localhost:9092
   datasource:
-    url: jdbc:postgresql://localhost:5433/products
+    url: jdbc:postgresql://localhost:5434/users
     username: postgres
     password: test12345
     driver-class-name: org.postgresql.Driver
@@ -18,5 +18,5 @@ spring:
       ddl-auto: update
 eureka:
   client:
-    fetch-registry: true
-    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

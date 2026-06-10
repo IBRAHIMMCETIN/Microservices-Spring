@@ -1,6 +1,7 @@
 spring:
-    application:
-        name: product-service
+  application:
+    name: gateway-server
+
 eureka:
   client:
     fetch-registry: true

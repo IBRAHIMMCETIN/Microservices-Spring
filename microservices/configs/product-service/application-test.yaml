@@ -4,3 +4,7 @@ spring:
         username: postgres
         password: turkcelltest
         driver-class-name: org.postgresql.Driver
+eureka:
+  client:
+    service-url:
+      defaultZone: http://test.turkcell.com:8761/eureka/
