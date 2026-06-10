@@ -60,9 +60,31 @@ services:
         POSTGRES_PASSWORD: test12345
         POSTGRES_DB: products
       ports:
-        - "5433:5432" # sağ taraf daima uygulamanın kendi portu
+        - "5433:5432"
+      # KRİTİK: Debezium için logical replication'ı aktif ediyoruz
+      command: ["postgres", "-c", "wal_level=logical"] 
       volumes:
         - product-db-data:/var/lib/postgresql/data
+      networks:
+        - kafka-net # Bu veritabanını da kafka ağına dahil etmeliyiz ki Debezium erişebilsin
+  debezium:
+      image: debezium/connect:2.7.3.Final
+      container_name: debezium
+      ports:
+        - "8083:8083"
+      environment:
+        BOOTSTRAP_SERVERS: kafka:19092
+        GROUP_ID: 1
+        CONFIG_STORAGE_TOPIC: my_connect_configs
+        OFFSET_STORAGE_TOPIC: my_connect_offsets
+        STATUS_STORAGE_TOPIC: my_connect_statuses
+      depends_on:
+        kafka:
+          condition: service_healthy
+        product-db:
+          condition: service_started
+      networks:
+        - kafka-net
   user-db:
       image: postgres:17
       container_name: user-db
