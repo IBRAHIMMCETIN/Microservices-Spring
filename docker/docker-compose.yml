@@ -104,7 +104,20 @@ services:
         PGADMIN_DEFAULT_PASSWORD: admin
       ports:
         - "5050:80"
-
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.1
+    container_name: keycloak
+    restart: unless-stopped
+    command: start-dev --import-realm
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HOSTNAME_STRICT: "false"
+      KC_HTTP_ENABLED: "true"
+    ports:
+      - "8086:8080"
+    networks:
+      - kafka-net
 volumes:
   kafka-data:
   product-db-data:
