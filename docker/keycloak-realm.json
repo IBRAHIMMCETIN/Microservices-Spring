@@ -1,0 +1,79 @@
+{
+  "id": "microservices-gygy5",
+  "realm": "microservices-gygy5",
+  "enabled": true,
+  "roles": {
+    "realm": [
+      {
+        "name": "user",
+        "description": "User Role"
+      },
+      {
+        "name": "admin",
+        "description": "Admin Role"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "bff-client",
+      "name": "BFF Client",
+      "description": "Backend For Frontend - session bazli auth proxy",
+      "enabled": true,
+      "publicClient": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "bff-client-secret",
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "implicitFlowEnabled": false,
+      "serviceAccountsEnabled": false,
+      "protocol": "openid-connect",
+      "redirectUris": [
+        "http://localhost:8090/login/oauth2/code/keycloak"
+      ],
+      "webOrigins": [
+        "http://localhost:3000",
+        "http://localhost:8090"
+      ],
+      "defaultClientScopes": [
+        "openid",
+        "profile",
+        "email",
+        "roles",
+        "web-origins",
+        "acr"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ]
+    }
+  ],
+  "clientScopes": [
+    {
+      "name": "roles",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true"
+      },
+      "protocolMappers": [
+        {
+          "name": "realm roles",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "multivalued": "true",
+            "user.attribute": "foo",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "realm_access.roles",
+            "jsonType.label": "String"
+          }
+        }
+      ]
+    }
+  ]
+}

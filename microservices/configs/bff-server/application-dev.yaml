@@ -1,0 +1,24 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: bff-client
+            client-secret: bff-client-secret
+            scope: openid,profile,email,roles
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8086/realms/microservices-gygy5
+            authorization-uri: http://localhost:8086/realms/microservices-gygy5/protocol/openid-connect/auth
+            token-uri: http://localhost:8086/realms/microservices-gygy5/protocol/openid-connect/token
+            user-info-uri: http://localhost:8086/realms/microservices-gygy5/protocol/openid-connect/userinfo
+            jwk-set-uri: http://localhost:8086/realms/microservices-gygy5/protocol/openid-connect/certs
+            end-session-uri: http://localhost:8086/realms/microservices-gygy5/protocol/openid-connect/logout
+            user-name-attribute: sub
+
+# Gateway URL — BFF tüm /api/** isteklerini buraya proxy'ler
+bff:
+  gateway-url: http://localhost:8888
